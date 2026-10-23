@@ -1,0 +1,16 @@
+[
+  "tests/test_calculator.py::test_amortisation_schedule_length_and_last_balance_zeroish",
+  "tests/test_calculator.py::test_compare_offers_sorts_by_total_cost",
+  "tests/test_calculator.py::test_eligible_amount_zero_interest_is_linear",
+  "tests/test_calculator.py::test_emi_example_matches_expected_reference",
+  "tests/test_calculator.py::test_emi_rejects_non_positive_inputs",
+  "tests/test_calculator.py::test_emi_zero_interest[100000-0.0-1-100000.0]",
+  "tests/test_calculator.py::test_emi_zero_interest[120000-0.0-12-10000.0]",
+  "tests/test_calculator.py::test_format_inr_indian_grouping_and_sign",
+  "tests/test_calculator.py::test_outstanding_after_months_paid_edges",
+  "tests/test_calculator.py::test_prepayment_larger_than_balance_closes_loan",
+  "tests/test_calculator.py::test_remaining_tenure_rejects_too_small_emi",
+  "tests/test_calculator.py::test_remaining_tenure_zero_rate_is_simple_division",
+  "tests/test_calculator.py::test_summary_contains_expected_fields_and_last_emi",
+  "tests/test_calculator.py::test_total_payment_and_interest_consistency"
+]

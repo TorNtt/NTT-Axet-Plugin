@@ -35,7 +35,7 @@ def amortisation_schedule(principal, annual_rate, tenure_months):
     instalment = emi(principal, annual_rate, tenure_months)
     balance = principal
     rows = []
-    for month in range(1, tenure_months):
+    for month in range(1, tenure_months + 1):
         interest = round(balance * r, 2)
         principal_part = round(instalment - interest, 2)
         if month == tenure_months:
@@ -44,13 +44,15 @@ def amortisation_schedule(principal, annual_rate, tenure_months):
         else:
             instalment_amt = instalment
         balance = round(balance - principal_part, 2)
-        rows.append({
-            "month": month,
-            "emi": instalment_amt,
-            "interest": interest,
-            "principal": principal_part,
-            "balance": max(balance, 0.0),
-        })
+        rows.append(
+            {
+                "month": month,
+                "emi": instalment_amt,
+                "interest": interest,
+                "principal": principal_part,
+                "balance": max(balance, 0.0),
+            }
+        )
     return rows
 
 
@@ -105,13 +107,15 @@ def compare_offers(principal, offers):
         e = emi(principal, o["rate"], o["tenure"])
         ti = total_interest(principal, o["rate"], o["tenure"])
         fee = o.get("processing_fee_pct", 0) * principal / 100
-        out.append({
-            "bank": o["bank"],
-            "emi": e,
-            "total_interest": ti,
-            "processing_fee": round(fee, 2),
-            "total_cost": round(ti + fee, 2),
-        })
+        out.append(
+            {
+                "bank": o["bank"],
+                "emi": e,
+                "total_interest": ti,
+                "processing_fee": round(fee, 2),
+                "total_cost": round(ti + fee, 2),
+            }
+        )
     out.sort(key=lambda x: x["total_cost"])
     return out
 
@@ -147,7 +151,9 @@ def schedule_to_csv(rows, path):
     with open(path, "w") as fh:
         fh.write("month,emi,interest,principal,balance\n")
         for r in rows:
-            fh.write(f'{r["month"]},{r["emi"]},{r["interest"]},{r["principal"]},{r["balance"]}\n')
+            fh.write(
+                f'{r["month"]},{r["emi"]},{r["interest"]},{r["principal"]},{r["balance"]}\n'
+            )
 
 
 def summary(principal, annual_rate, tenure_months, start=None):
