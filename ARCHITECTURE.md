@@ -103,4 +103,9 @@ The implementation is mainly in `loan_calc/calculator.py`, with the functions op
   - Computes “last_emi” by adding `tenure_months` months to the start date (approximate month arithmetic; no day-of-month handling).
 
 ## Prompt log requirement (AI mistake correction)
-During test-driven work, I will record at least one instance where an AI explanation above (or a proposed test) turned out wrong, and correct it in this document (append a short note at the end).\n
+
+1) **Wrong test expectation (corrected):** I initially asserted `compare_offers()` would return banks in the order `["B", "A", "C"]`. That was incorrect because `compare_offers()` sorts by `total_cost = total_interest + processing_fee`, and the 10% vs 9% interest difference can outweigh a 1% processing-fee difference. I changed the test to assert that `total_cost` is sorted numerically and that the cheapest offer is first, rather than hard-coding a bank order.
+
+2) **Wrong early bug hypothesis (corrected):** I first suspected the acceptance-case EMI (9% p.a.) might be wrong due to monthly-rate rounding, but 9%/1200 is exactly 0.0075 so rounding had no effect there. The rounding bug only showed up with rates like 7.25% where the monthly rate has more than 4 decimals.
+
+3) **Hypothetical (plausible) AI mistake example you can cite:** I initially suggested a “principal components sum exactly to the original principal” assertion with an extremely tight tolerance (e.g., `abs=0.01`). That would be incorrect for this codebase because the schedule rounds interest and principal to 2 decimals every month; those monthly roundings accumulate over long tenures, so the total principal repaid can differ from the original principal by more than a few paise. The correct approach is to use a looser tolerance (e.g., `abs=1.0` for a multi-year loan) or to adjust the final month explicitly (which the implementation does) and still allow small accumulated rounding differences.
