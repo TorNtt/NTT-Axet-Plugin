@@ -5,6 +5,7 @@
   "tests/test_calculator.py::test_eligible_amount_zero_interest_is_linear",
   "tests/test_calculator.py::test_emi_example_matches_expected_reference",
   "tests/test_calculator.py::test_emi_matches_unrounded_rate_reference_close",
+  "tests/test_calculator.py::test_emi_rate_with_more_decimals_does_not_round_monthly_rate",
   "tests/test_calculator.py::test_emi_rejects_non_positive_inputs",
   "tests/test_calculator.py::test_emi_zero_interest[100000-0.0-1-100000.0]",
   "tests/test_calculator.py::test_emi_zero_interest[120000-0.0-12-10000.0]",

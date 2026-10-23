@@ -32,6 +32,18 @@ def test_emi_matches_unrounded_rate_reference_close():
     assert emi(p, annual, n) == pytest.approx(ref, abs=0.05)
 
 
+def test_emi_rate_with_more_decimals_does_not_round_monthly_rate():
+    # 7.25% => monthly rate 0.006041666..., rounding to 4 decimals (0.0060)
+    # changes EMI materially for long tenures.
+    p, annual, n = 1_000_000, 7.25, 240
+    r = annual / 1200.0
+    f = (1 + r) ** n
+    ref = round(p * r * f / (f - 1), 2)
+
+    # Tight tolerance to catch monthly-rate rounding bugs.
+    assert emi(p, annual, n) == pytest.approx(ref, abs=0.05)
+
+
 @pytest.mark.parametrize(
     "principal,annual_rate,tenure_months,expected",
     [
