@@ -1,3 +1,3 @@
 {
-  "tests/test_calculator.py::test_amortisation_schedule_length_and_last_balance_zeroish": true
+  "tests/test_calculator.py::test_remaining_tenure_matches_simulation_monthly_rate": true
 }
